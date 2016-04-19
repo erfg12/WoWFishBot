@@ -25,7 +25,7 @@ namespace WindowsFormsApplication3
             return copy;
         }
 
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", CharSet=CharSet.Auto, CallingConvention=CallingConvention.StdCall)]
         public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
         [DllImport("user32.dll")]
         public static extern void keybd_event(byte vk, byte scan, int flags, int extrainfo);
@@ -84,8 +84,8 @@ namespace WindowsFormsApplication3
                 if (Math.Abs(bmp.Width / divisor - tempRect.Width) < epsilon && Math.Abs(bmp.Height / divisor - tempRect.Height) < epsilon)
                 {
                     SetText(findImage, "True");
-                    Loot(imageX, imageY);
                 }
+                Loot(imageX, imageY);
             }
             else
             {
@@ -141,6 +141,7 @@ namespace WindowsFormsApplication3
 
         private void Loot(int x, int y)
         {
+            Cursor.Position = new Point(x, y);
             // press and hold shift button (loot all)
             keybd_event(KEYBDEVENTF_SHIFTVIRTUAL, KEYBDEVENTF_SHIFTSCANCODE, KEYBDEVENTF_KEYDOWN, 0);
             // right click
