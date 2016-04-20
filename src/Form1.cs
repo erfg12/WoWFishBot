@@ -83,13 +83,13 @@ namespace WindowsFormsApplication3
 
                 if (Math.Abs(bmp.Width / divisor - tempRect.Width) < epsilon && Math.Abs(bmp.Height / divisor - tempRect.Height) < epsilon)
                 {
-                    SetText(findImage, "True");
+                    SetText(findImage, "Got Fish!");
                 }
                 Loot(imageX, imageY);
             }
             else
             {
-                SetText(findImage, "False");
+                SetText(findImage, "Waiting for splash...");
                 SetText(imageXY, "");
             }
         }
@@ -124,11 +124,19 @@ namespace WindowsFormsApplication3
             cursorXY.Text = Cursor.Position.ToString();
         }
 
+        private void castRod ()
+        {
+            // press 1 (assumed to be skill fish)
+            keybd_event(KEYBDEVENTF_NUM1VIRTUAL, KEYBDEVENTF_NUM1SCANCODE, KEYBDEVENTF_KEYDOWN, 0);
+            keybd_event(KEYBDEVENTF_NUM1VIRTUAL, KEYBDEVENTF_NUM1SCANCODE, KEYBDEVENTF_KEYUP, 0);
+        }
+
         private void startStop()
         {
             // this only stops our image comparison function
             if (stopWorker)
             {
+                recast.Enabled = true;
                 stopWorker = false;
                 button1.Text = "Stop Fishing.";
             }
@@ -143,6 +151,7 @@ namespace WindowsFormsApplication3
         {
             Cursor.Position = new Point(x, y);
             // press and hold shift button (loot all)
+            System.Threading.Thread.Sleep(200);
             keybd_event(KEYBDEVENTF_SHIFTVIRTUAL, KEYBDEVENTF_SHIFTSCANCODE, KEYBDEVENTF_KEYDOWN, 0);
             // right click
             mouse_event(MOUSEEVENTF_RIGHTDOWN | MOUSEEVENTF_RIGHTUP, Convert.ToUInt32(x), Convert.ToUInt32(y), 0, 0);
@@ -205,10 +214,9 @@ namespace WindowsFormsApplication3
 
         private void recast_Tick(object sender, EventArgs e)
         {
-            // press 1 (assumed to be skill fish)
-            keybd_event(KEYBDEVENTF_NUM1VIRTUAL, KEYBDEVENTF_NUM1SCANCODE, KEYBDEVENTF_KEYDOWN, 0);
-            keybd_event(KEYBDEVENTF_NUM1VIRTUAL, KEYBDEVENTF_NUM1SCANCODE, KEYBDEVENTF_KEYUP, 0);
+            castRod();
             recast.Enabled = false;
+            Cursor.Position = new Point(imageX, (imageY + 100)); //cursor might get in the way
         }
     }
 }

@@ -53,15 +53,16 @@
             this.findImage.ReadOnly = true;
             this.findImage.Size = new System.Drawing.Size(100, 20);
             this.findImage.TabIndex = 1;
+            this.findImage.Text = "1";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(11, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 13);
+            this.label1.Size = new System.Drawing.Size(68, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Image Found";
+            this.label1.Text = "Bobber Stats";
             // 
             // label2
             // 
