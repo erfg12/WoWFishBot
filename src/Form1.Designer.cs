@@ -49,9 +49,12 @@
             this.label9 = new System.Windows.Forms.Label();
             this.sensLabel = new System.Windows.Forms.Label();
             this.dudTimer = new System.Windows.Forms.Timer(this.components);
-            this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.dudTimerLive = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.runTimerText = new System.Windows.Forms.TextBox();
+            this.runTimer = new System.Windows.Forms.Timer(this.components);
+            this.finishBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
@@ -141,7 +144,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 156);
+            this.label4.Location = new System.Drawing.Point(15, 168);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(123, 13);
             this.label4.TabIndex = 0;
@@ -150,7 +153,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(133, 156);
+            this.label5.Location = new System.Drawing.Point(133, 168);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(13, 13);
             this.label5.TabIndex = 9;
@@ -159,7 +162,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(15, 183);
+            this.label8.Location = new System.Drawing.Point(15, 208);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(158, 13);
             this.label8.TabIndex = 12;
@@ -173,15 +176,15 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 196);
+            this.label6.Location = new System.Drawing.Point(187, 227);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(152, 13);
+            this.label6.Size = new System.Drawing.Size(313, 13);
             this.label6.TabIndex = 13;
-            this.label6.Text = "NOTE: Make 1 key skill fishing";
+            this.label6.Text = "NOTE: Make 1 key skill fishing and use ALT+Z to toggle your UI.";
             // 
             // trackBar1
             // 
-            this.trackBar1.Location = new System.Drawing.Point(11, 112);
+            this.trackBar1.Location = new System.Drawing.Point(11, 124);
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(169, 45);
             this.trackBar1.TabIndex = 14;
@@ -191,7 +194,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(16, 101);
+            this.label7.Location = new System.Drawing.Point(16, 112);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(146, 13);
             this.label7.TabIndex = 15;
@@ -200,7 +203,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(15, 142);
+            this.label9.Location = new System.Drawing.Point(15, 154);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(104, 13);
             this.label9.TabIndex = 16;
@@ -209,7 +212,7 @@
             // sensLabel
             // 
             this.sensLabel.AutoSize = true;
-            this.sensLabel.Location = new System.Drawing.Point(121, 142);
+            this.sensLabel.Location = new System.Drawing.Point(114, 154);
             this.sensLabel.Name = "sensLabel";
             this.sensLabel.Size = new System.Drawing.Size(28, 13);
             this.sensLabel.TabIndex = 17;
@@ -220,19 +223,10 @@
             this.dudTimer.Interval = 45000;
             this.dudTimer.Tick += new System.EventHandler(this.dudTimer_Tick);
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(15, 209);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(156, 13);
-            this.label10.TabIndex = 18;
-            this.label10.Text = "NOTE: Use ALT+Z to toggle UI";
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(15, 169);
+            this.label11.Location = new System.Drawing.Point(15, 181);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(103, 13);
             this.label11.TabIndex = 19;
@@ -241,20 +235,57 @@
             // dudTimerLive
             // 
             this.dudTimerLive.AutoSize = true;
-            this.dudTimerLive.Location = new System.Drawing.Point(114, 169);
+            this.dudTimerLive.Location = new System.Drawing.Point(114, 181);
             this.dudTimerLive.Name = "dudTimerLive";
             this.dudTimerLive.Size = new System.Drawing.Size(46, 13);
             this.dudTimerLive.TabIndex = 20;
             this.dudTimerLive.Text = "disabled";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(15, 227);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(36, 13);
+            this.label10.TabIndex = 21;
+            this.label10.Text = "Timer:";
+            // 
+            // runTimerText
+            // 
+            this.runTimerText.Location = new System.Drawing.Point(49, 224);
+            this.runTimerText.Name = "runTimerText";
+            this.runTimerText.Size = new System.Drawing.Size(36, 20);
+            this.runTimerText.TabIndex = 22;
+            this.runTimerText.Text = "480";
+            // 
+            // runTimer
+            // 
+            this.runTimer.Interval = 60000;
+            this.runTimer.Tick += new System.EventHandler(this.runTimer_Tick);
+            // 
+            // finishBox
+            // 
+            this.finishBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.finishBox.FormattingEnabled = true;
+            this.finishBox.Items.AddRange(new object[] {
+            "stop bot",
+            "exit game",
+            "use hearthstone"});
+            this.finishBox.Location = new System.Drawing.Point(87, 224);
+            this.finishBox.Name = "finishBox";
+            this.finishBox.Size = new System.Drawing.Size(93, 21);
+            this.finishBox.TabIndex = 23;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(605, 234);
+            this.ClientSize = new System.Drawing.Size(605, 253);
+            this.Controls.Add(this.finishBox);
+            this.Controls.Add(this.runTimerText);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.dudTimerLive);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.label10);
             this.Controls.Add(this.sensLabel);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label7);
@@ -306,9 +337,12 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label sensLabel;
         private System.Windows.Forms.Timer dudTimer;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label dudTimerLive;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox runTimerText;
+        private System.Windows.Forms.Timer runTimer;
+        private System.Windows.Forms.ComboBox finishBox;
     }
 }
 

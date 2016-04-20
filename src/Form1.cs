@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using AForge.Imaging;
 using AForge.Imaging.Filters;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace WindowsFormsApplication3
 {
@@ -60,12 +61,14 @@ namespace WindowsFormsApplication3
             }
         }
 
+        public float sensitivity = 0.99f; //somewhere between 0.98 - 0.99 is perfect
+
         void Contains(Bitmap template, Bitmap bmp)
         {
             const Int32 divisor = 4;
             const Int32 epsilon = 10;
 
-
+            ExhaustiveTemplateMatching etm = new ExhaustiveTemplateMatching(sensitivity);
 
             TemplateMatch[] tm = etm.ProcessImage(
                 new ResizeNearestNeighbor(template.Width / divisor, template.Height / divisor).Apply(template),
@@ -109,7 +112,11 @@ namespace WindowsFormsApplication3
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            if (!File.Exists(Application.StartupPath + @"\splash.bmp"))
+            {
+                MessageBox.Show("splash.bmp image file is missing!" + "\n" + "It must be in the same directory as wowFishing.exe", "CRITICAL ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
         }
 
         private void Form1_Shown(object sender, EventArgs e)
@@ -138,6 +145,7 @@ namespace WindowsFormsApplication3
             {
                 recast.Enabled = true;
                 stopWorker = false;
+                runTimer.Enabled = true;
                 button1.Text = "Stop Fishing.";
             }
             else
@@ -146,6 +154,7 @@ namespace WindowsFormsApplication3
                 button1.Text = "Start Fishing!";
                 recast.Enabled = false;
                 dudTimer.Enabled = false;
+                runTimer.Enabled = false;
             }
         }
 
@@ -232,11 +241,21 @@ namespace WindowsFormsApplication3
         {
             float trackBarValue = trackBar1.Value;
             float percentage = Convert.ToSingle(trackBarValue / 100.0);
+            sensitivity = Convert.ToSingle(0.90 + percentage);
+            sensLabel.Text = sensitivity.ToString();
         }
 
         private void dudTimer_Tick(object sender, EventArgs e)
         {
             recast.Enabled = true;
+        }
+
+        private void runTimer_Tick(object sender, EventArgs e)
+        {
+            if (Convert.ToInt32(runTimerText.Text) > 1)
+                runTimerText.Text = (Convert.ToInt32(runTimerText.Text) - 1).ToString();
+            else
+                startStop(); // camp and hearth needs to be added later
         }
     }
 }
