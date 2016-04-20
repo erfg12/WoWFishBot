@@ -65,7 +65,7 @@ namespace WindowsFormsApplication3
             const Int32 divisor = 4;
             const Int32 epsilon = 10;
 
-            ExhaustiveTemplateMatching etm = new ExhaustiveTemplateMatching(0.99f); //
+
 
             TemplateMatch[] tm = etm.ProcessImage(
                 new ResizeNearestNeighbor(template.Width / divisor, template.Height / divisor).Apply(template),
@@ -144,12 +144,14 @@ namespace WindowsFormsApplication3
             {
                 stopWorker = true;
                 button1.Text = "Start Fishing!";
+                recast.Enabled = false;
+                dudTimer.Enabled = false;
             }
         }
 
         private void Loot(int x, int y)
         {
-            Cursor.Position = new Point(x, y);
+            Cursor.Position = new Point(x, (y + 10));
             // press and hold shift button (loot all)
             System.Threading.Thread.Sleep(200);
             keybd_event(KEYBDEVENTF_SHIFTVIRTUAL, KEYBDEVENTF_SHIFTSCANCODE, KEYBDEVENTF_KEYDOWN, 0);
@@ -159,6 +161,7 @@ namespace WindowsFormsApplication3
             keybd_event(KEYBDEVENTF_SHIFTVIRTUAL, KEYBDEVENTF_SHIFTSCANCODE, KEYBDEVENTF_KEYUP, 0);
             // start recast our rod timer
             recast.Enabled = true;
+            dudTimer.Enabled = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -208,6 +211,11 @@ namespace WindowsFormsApplication3
             if (!stopWorker)
                 Contains(template2, find);
 
+            if (dudTimer.Enabled)
+                dudTimerLive.Text = "enabled";
+            else
+                dudTimerLive.Text = "disabled";
+
             if (!backgroundWorker1.IsBusy)
                 backgroundWorker1.RunWorkerAsync();
         }
@@ -216,7 +224,19 @@ namespace WindowsFormsApplication3
         {
             castRod();
             recast.Enabled = false;
-            Cursor.Position = new Point(imageX, (imageY + 100)); //cursor might get in the way
+            Cursor.Position = new Point(imageX, (imageY + 500)); //cursor might get in the way
+            dudTimer.Enabled = true;
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            float trackBarValue = trackBar1.Value;
+            float percentage = Convert.ToSingle(trackBarValue / 100.0);
+        }
+
+        private void dudTimer_Tick(object sender, EventArgs e)
+        {
+            recast.Enabled = true;
         }
     }
 }
