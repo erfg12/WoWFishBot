@@ -144,8 +144,8 @@ namespace WindowsFormsApplication3
                 findimg.Dispose();
                 _findLen++;
             }
-        }
 //end Templates initialization
+        }
         private void Form1_Shown(object sender, EventArgs e)
         {
             RegisterHotKey(this.Handle, 1, 2, (int) 'S'); // start/stop toggle hotkey
