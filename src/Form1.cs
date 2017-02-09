@@ -19,7 +19,7 @@ namespace WindowsFormsApplication3
 
         public Bitmap ConvertToFormat(System.Drawing.Image image, System.Drawing.Imaging.PixelFormat format)
         {
-            GC.Collect();
+            GC.Collect(); //not the best way to collect 'copy' but it works
             GC.WaitForPendingFinalizers();
             Bitmap copy = new Bitmap(image.Width, image.Height, format);
             using (Graphics gr = Graphics.FromImage(copy))
@@ -96,7 +96,7 @@ namespace WindowsFormsApplication3
                     SetText(findImage, "Got Fish!");
                 }
                 Loot(imageX, imageY);
-                label11.Text = "Template: splash" + tmpltnum.ToString() + ".bmp";
+                label11.Text = "Template: splash" + tmpltnum.ToString() + ".bmp"; //debug, shows which template matched the bobber (or other stuff on your screen)
             }
             else
             {
@@ -128,7 +128,8 @@ namespace WindowsFormsApplication3
                 Application.Exit();
             }
             _findLen = 0;
-
+//start Templates initialization
+//moved it to Form1_Load to not reinitialized it during each worker selfinvokation
             for (int i = 0;; i++)
             {
                 string path = Application.StartupPath + @"\splash" + i.ToString() + ".bmp";
@@ -144,7 +145,7 @@ namespace WindowsFormsApplication3
                 _findLen++;
             }
         }
-
+//end Templates initialization
         private void Form1_Shown(object sender, EventArgs e)
         {
             RegisterHotKey(this.Handle, 1, 2, (int) 'S'); // start/stop toggle hotkey
